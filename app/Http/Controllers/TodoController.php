@@ -14,7 +14,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        return Todo::all();
     }
 
     /**
@@ -46,7 +46,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        return $todo;
     }
 
     /**
