@@ -20,7 +20,8 @@ class TodoController extends Controller
     public function index()
     {
         // niet alle to do items, maar alleen van ingelogde.
-        return Todo::all();
+        $todos = \Auth::user()->todos;
+        return view('todos/index')->with('todos', $todos);
     }
 
     /**
@@ -30,7 +31,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        return view('todos/create');
     }
 
     /**
@@ -41,7 +42,17 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all() );
+        $todo               = new Todo();
+        $todo->title        = $request->title;
+        $todo->description  = $request->description;
+        $todo->deadline     = $request->deadline;
+        $todo->user_id      = \Auth::id();
+        $todo->priority     = $request->priority;
+        $todo->save();
+
+        return redirect()->route('todos.index');
+
     }
 
     /**
